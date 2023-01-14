@@ -17,6 +17,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
     public static final String BOOKS_TABLE = "Books";
     public static final String LIBRARY_TABLE = "Libraries";
     public static final String AUTHOR_TABLE = "Authors";
+    public static final String INVENTORY_TABLE = "Inventory";
+    public static final String CREATIVE_TABLE = "Creative";
 
     public static final String BOOK_ID = "book_id";
     public static final String BOOK_NAME = "name";
@@ -32,9 +34,18 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
     public static final String LIBRARY_NAME = "name";
     public static final String LIBRARY_ADDRESS = "address";
 
+    public static final String INVENTORY_ID = "inventory_id";
+    public static final String INVENTORY_BOOK = "book_id";
+    public static final String INVENTORY_LIBRARY = "library_id";
+
+    public static final String CREATIVE_ID = "creative_id";
+    public static final String CREATIVE_BOOK = "book_id";
+    public static final String CREATIVE_AUTHOR = "author_id";
+
     public static final String USERS_TABLE = "Users";
     public static final String USER_USERNAME = "username";
     public static final String USER_PASSWORD = "password";
+    public static final String USER_PERMISSION = "permission";
 
 
 
@@ -55,24 +66,50 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
                 AUTHOR_LASTNAME + " TEXT, " +
                 AUTHOR_FIRSTNAME + " TEXT, " +
                 AUTHOR_COUNTRY + " TEXT);";
+
         String createLibraryStatement = "CREATE TABLE " + LIBRARY_TABLE + " (" +
                 LIBRARY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 LIBRARY_NAME + " TEXT, " +
                 LIBRARY_ADDRESS + " TEXT);";
 
+        String createInventoryStatement = "CREATE TABLE " + INVENTORY_TABLE + " (" +
+                INVENTORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                INVENTORY_BOOK + " INTEGER, " +
+                INVENTORY_LIBRARY + " INTEGER, " +
+                "FOREIGN KEY("+ INVENTORY_BOOK + ") REFERENCES " + BOOKS_TABLE +"("+BOOK_ID+"), " +
+                "FOREIGN KEY("+ INVENTORY_LIBRARY + ") REFERENCES " + LIBRARY_TABLE +"("+LIBRARY_ID+"));";
+
+        String createCreativeStatement = "CREATE TABLE " + CREATIVE_TABLE + " (" +
+                CREATIVE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CREATIVE_BOOK + " INTEGER, " +
+                CREATIVE_AUTHOR + " INTEGER, " +
+                "FOREIGN KEY("+ CREATIVE_BOOK + ") REFERENCES " + BOOKS_TABLE +"("+BOOK_ID+"), " +
+                "FOREIGN KEY("+ CREATIVE_AUTHOR + ") REFERENCES " + AUTHOR_TABLE +"("+AUTHOR_ID+"));";
+
         String createUserStatement = "CREATE TABLE " + USERS_TABLE + " (" +
                 USER_USERNAME + " TEXT Primary Key, " +
-                USER_PASSWORD + " TEXT);";
+                USER_PASSWORD + " TEXT," +
+                USER_PERMISSION + " TEXT);";
 
         sqLiteDatabase.execSQL(createAuthorStatement);
         sqLiteDatabase.execSQL(createBooksStatement);
         sqLiteDatabase.execSQL(createLibraryStatement);
+        sqLiteDatabase.execSQL(createCreativeStatement);
         sqLiteDatabase.execSQL(createUserStatement);
+        sqLiteDatabase.execSQL(createInventoryStatement);
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_USERNAME, "admin");
         contentValues.put(USER_PASSWORD, "admin");
-        long result = sqLiteDatabase.insert(USERS_TABLE, null, contentValues);
+        contentValues.put(USER_PERMISSION,"admin");
+
+        sqLiteDatabase.insert(USERS_TABLE, null, contentValues);
+
+        contentValues.put(USER_USERNAME, "user");
+        contentValues.put(USER_PASSWORD, "user");
+        contentValues.put(USER_PERMISSION,"user");
+
+        sqLiteDatabase.insert(USERS_TABLE, null, contentValues);
     }
 
     @Override
@@ -84,11 +121,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper{
         onCreate(sqLiteDatabase);
     }
 
-    public Boolean insertUser(String username, String password){
+    public Boolean insertUser(String username, String password, String permissions){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_USERNAME, username);
         contentValues.put(USER_PASSWORD, password);
+        contentValues.put(USER_PERMISSION,permissions);
         long result = MyDB.insert(USERS_TABLE, null, contentValues);
         return result != -1;
     }

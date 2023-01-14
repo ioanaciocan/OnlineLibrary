@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText username, pass, repass;
     Button register, signin;
     MyDatabaseHelper myDatabaseHelper;
+    CheckBox checkBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         repass = (EditText) findViewById(R.id.repassText);
         register = (Button) findViewById(R.id.registerButton);
         signin = (Button) findViewById(R.id.singinButton);
+        checkBox = findViewById(R.id.checkBox);
         myDatabaseHelper = new MyDatabaseHelper(this);
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String user = username.getText().toString();
                 String password = pass.getText().toString();
                 String repassword = repass.getText().toString();
+                Boolean check = checkBox.isChecked();
 
                 if(user.equals("") || password.equals("") || repassword.equals("")){
                     Toast.makeText(RegisterActivity.this, "Please enter all the fields",
@@ -41,7 +45,13 @@ public class RegisterActivity extends AppCompatActivity {
                     if(password.equals(repassword)){
                         Boolean checkuser = myDatabaseHelper.checkusername(user);
                         if(checkuser == false){
-                            Boolean insert = myDatabaseHelper.insertUser(user, password);
+                            Boolean insert;
+                            if(check){
+                                insert = myDatabaseHelper.insertUser(user, password,"admin");
+                            }else{
+                                insert = myDatabaseHelper.insertUser(user, password,"user");
+                            }
+
                             if(insert == true){
                                 Toast.makeText(RegisterActivity.this, "Registerd " +
                                         "successfully", Toast.LENGTH_SHORT).show();
