@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.apply();
                         Toast.makeText(LoginActivity.this, "Sign In successfull",
                                 Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                         startActivity(intent);
                     }else{
                         Toast.makeText(LoginActivity.this, "Invalid Credentials",

@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BooksListActivity">
+    tools:context=".AddBookActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -19,15 +20,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/authorAddTitle"
+            android:id="@+id/textAddBook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:text="Books List"
+            android:text="Add Book"
             android:textSize="25dp" />
 
         <ImageButton
-            android:id="@+id/logoutBook"
+            android:id="@+id/logoutAddBook"
             android:layout_width="34dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="355dp"
@@ -54,47 +55,65 @@
             android:src="@drawable/ic_baseline_person_24" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonAddBook"
-        android:layout_width="231dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="624dp"
-        android:text="ADD BOOK"
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/bookListView"
-        android:layout_width="match_parent"
-        android:layout_height="324dp"
-        android:layout_marginTop="96dp"
+    <EditText
+        android:id="@+id/editTextYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="272dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Year"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/editTextPublisher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="372dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Publisher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/booksList"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        android:layout_width="409dp"-->
-    <!--        android:layout_height="729dp"-->
-    <!--        tools:layout_editor_absoluteX="1dp"-->
-    <!--        tools:layout_editor_absoluteY="1dp" />-->
+    <Button
+        android:id="@+id/buttonSaveBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="464dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        android:id="@+id/addButton"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent"-->
-    <!--        android:layout_marginBottom="20dp"-->
-    <!--        android:layout_marginEnd="20dp"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:clickable="true"-->
-    <!--        app:srcCompat="@drawable/ic_add"-->
-    <!--        tools:ignore="SpeakableTextPresentCheck"-->
-    <!--        tools:layout_editor_absoluteX="339dp"-->
-    <!--        tools:layout_editor_absoluteY="659dp" />-->
+    <Button
+        android:id="@+id/buttonDeleteBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="548dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

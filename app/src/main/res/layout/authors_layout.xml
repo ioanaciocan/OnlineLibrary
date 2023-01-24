@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@color/teal_700">
+
+    <TextView
+        android:id="@+id/authorsLayoutLastname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lastname"
+        android:textSize="25dp"
+        android:layout_marginStart="25dp"/>
+
+    <TextView
+        android:id="@+id/authorsLayoutFirstname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Firstname"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/authorsLayoutCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Country"
+        android:textSize="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/buttonEditLibrary"-->
+    <!--        android:layout_width="34dp"-->
+    <!--        android:layout_height="34dp"-->
+    <!--        android:layout_marginLeft="350dp"-->
+    <!--        android:layout_marginTop="-55dp"-->
+    <!--        android:background="@color/transparent"-->
+    <!--        android:src="@drawable/ic_baseline_edit_24"-->
+
+    <!--        />-->
+
+
+</LinearLayout>

@@ -1,28 +1,30 @@
 package com.example.onlinelibrary;
 
-import static com.example.onlinelibrary.R.id.buttonLibrariesM;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 public class MenuActivity extends AppCompatActivity {
 
-    Button logout, libraries, books, authors, libraries_books, books_authors;
+    ImageButton logout, admin, menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_activity);
+        setContentView(R.layout.activity_menu);
 
-        logout = findViewById(R.id.logoutMenu);
-        libraries = findViewById(R.id.buttonLibrariesM);
-        books = findViewById(R.id.buttonBooksM);
-        authors = findViewById(R.id.buttonAuthorsM);
-        libraries_books = findViewById(R.id.buttonLibrariesBooksM);
-        books_authors = findViewById(R.id.buttonBooksAuthorsM);
+        LinearLayout linearLayout = findViewById(R.id.linearLayout);
+        LinearLayout linearLayout1 = linearLayout.findViewById(R.id.linearLayoutButtons);
+
+        logout = linearLayout1.findViewById(R.id.buttonLogoutMenu);
+        admin = linearLayout1.findViewById(R.id.buttonAdmin);
+        menu = linearLayout1.findViewById(R.id.buttonMenu);
+
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,19 +34,19 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        libraries.setOnClickListener(new View.OnClickListener() {
+
+        admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),LibrariesListActivity.class);
+                Intent i = new Intent(getApplicationContext(), AdminMenuActivity.class);
                 startActivity(i);
             }
         });
 
-        books.setOnClickListener(new View.OnClickListener() {
+        menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),BooksListActivity.class);
-                startActivity(i);
+
             }
         });
 

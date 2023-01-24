@@ -13,57 +13,49 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-public class BooksListActivity extends AppCompatActivity {
+public class AuthorsListActivity extends AppCompatActivity {
 
     ImageButton logout,  admin, menu;
-    Button addBook;
-    ListView bookListView;
+    Button addAuthor;
+    ListView authorListView;
     MyDatabaseHelper myDatabaseHelper;
-    Cursor bookData;
+    Cursor authorData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_books_list);
+        setContentView(R.layout.activity_authors_list);
 
         LinearLayout linearLayout = findViewById(R.id.linearLayout);
-        logout = linearLayout.findViewById(R.id.logoutBook);
+        logout = linearLayout.findViewById(R.id.logoutAuthor);
         menu = linearLayout.findViewById(R.id.buttonMenu);
         admin = linearLayout.findViewById(R.id.buttonAdminMenu);
 
-        addBook = findViewById(R.id.buttonAddBook);
-        bookListView = findViewById(R.id.bookListView);
-
+        addAuthor = findViewById(R.id.buttonAddAuthor);
+        authorListView = findViewById(R.id.authorListView);
         myDatabaseHelper = new MyDatabaseHelper(this);
-        bookData  = myDatabaseHelper.getBook();
+        authorData  = myDatabaseHelper.getAuthor();
         SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
-                R.layout.books_layout,bookData,
-                new String[]{bookData.getColumnName(1),
-                        bookData.getColumnName(2), bookData.getColumnName(3)
+                R.layout.authors_layout,authorData,
+                new String[]{authorData.getColumnName(1),
+                        authorData.getColumnName(2),
+                        authorData.getColumnName(3)
                 },
-                new int[]{R.id.booksLayoutName,R.id.booksLayoutYear, R.id.booksLayoutPublisher},0);
-        bookListView.setAdapter(sca);
+                new int[]{R.id.authorsLayoutLastname,R.id.authorsLayoutFirstname,R.id.authorsLayoutCountry},0);
+        authorListView.setAdapter(sca);
 
-        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        authorListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(),AddBookActivity.class);
-                Cursor currentElement = myDatabaseHelper.getBookByID(id);
+
+                Intent i = new Intent(getApplicationContext(), AddAuthorActivity.class);
+                Cursor currentElement = myDatabaseHelper.getAuthorByID(id);
                 currentElement.moveToFirst();
                 i.putExtra("state", "edit");
-                i.putExtra("name",currentElement.getString(1));
-                i.putExtra("year",currentElement.getString(2));
-                i.putExtra("publisher",currentElement.getString(3));
+                i.putExtra("firstname",currentElement.getString(1));
+                i.putExtra("lastname",currentElement.getString(2));
+                i.putExtra("country",currentElement.getString(3));
                 i.putExtra("id",id);
-                startActivity(i);
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                i.putExtra("logout",true);
                 startActivity(i);
             }
         });
@@ -84,10 +76,19 @@ public class BooksListActivity extends AppCompatActivity {
             }
         });
 
-        addBook.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), AddBookActivity.class);
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                i.putExtra("logout",true);
+                startActivity(i);
+            }
+        });
+
+        addAuthor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), AddAuthorActivity.class);
                 i.putExtra("state", "add");
                 startActivity(i);
             }
@@ -97,6 +98,6 @@ public class BooksListActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bookData.close();
+        authorData.close();
     }
 }
