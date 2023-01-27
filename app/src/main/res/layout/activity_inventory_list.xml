@@ -7,4 +7,70 @@
     android:layout_height="match_parent"
     tools:context=".InventoryListActivity">
 
+  <LinearLayout
+      android:id="@+id/linearLayout"
+      android:layout_width="match_parent"
+      android:layout_height="60dp"
+      android:layout_marginTop="0dp"
+      android:background="@color/teal_700"
+      android:orientation="vertical"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/authorAddTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="Inventory List"
+        android:textSize="25dp" />
+
+    <ImageButton
+        android:id="@+id/buttonLogout"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="355dp"
+        android:layout_marginTop="-25dp"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_baseline_logout_24" />
+
+    <ImageButton
+        android:id="@+id/buttonMenu"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="-25dp"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_baseline_menu_24" />
+
+    <ImageButton
+        android:id="@+id/buttonAdmin"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="290dp"
+        android:layout_marginTop="-25dp"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_baseline_person_24" />
+  </LinearLayout>
+
+  <Button
+      android:id="@+id/buttonAddInventory"
+      android:layout_width="231dp"
+      android:layout_height="42dp"
+      android:layout_marginTop="624dp"
+      android:text="ADD INVENTORY"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <ListView
+      android:id="@+id/inventoryListView"
+      android:layout_width="match_parent"
+      android:layout_height="324dp"
+      android:layout_marginTop="96dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
   </androidx.constraintlayout.widget.ConstraintLayout>

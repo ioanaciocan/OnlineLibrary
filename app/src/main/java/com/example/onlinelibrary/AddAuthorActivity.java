@@ -107,7 +107,7 @@ public class AddAuthorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 myDatabaseHelper.deleteAuthor(id);
-                Intent new_intent = new Intent(getApplicationContext(),BooksListActivity.class);
+                Intent new_intent = new Intent(getApplicationContext(),AuthorsListActivity.class);
                 startActivity(new_intent);
             }
         });

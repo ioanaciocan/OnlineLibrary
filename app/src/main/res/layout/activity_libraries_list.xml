@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:text="Author List"
+            android:text="Libraries List"
             android:textSize="25dp" />
 
         <ImageButton
@@ -60,7 +60,7 @@
         android:layout_width="231dp"
         android:layout_height="42dp"
         android:layout_marginTop="624dp"
-        android:text="ADD AUTHOR"
+        android:text="ADD LIBRARY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

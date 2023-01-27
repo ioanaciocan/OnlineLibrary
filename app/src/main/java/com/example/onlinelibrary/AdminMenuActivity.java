@@ -76,5 +76,13 @@ public class AdminMenuActivity extends AppCompatActivity {
             }
         });
 
+        libraries_books.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),InventoryListActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 }
