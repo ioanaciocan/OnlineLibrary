@@ -77,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.putExtra("logout", true);
                 startActivity(intent);
             }
         });

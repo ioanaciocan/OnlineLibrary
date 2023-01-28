@@ -3,25 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/peach">
 
+    <LinearLayout
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/books"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/authorAddTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:text="LIBRARIES"
+            android:fontFamily="@font/unbounded_extrabold"
+            android:textColor="@color/white"
+            android:textSize="48dp"
+            android:shadowColor="@color/black"
+            android:shadowRadius="12"/>
+
+        <TextView
+            android:layout_marginTop="-45dp"
+            android:layout_marginLeft="130dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pacifico_regular"
+            android:text="the book club"
+            android:textSize="35dp"
+            android:textColor="@color/white"
+            android:shadowColor="@color/black"
+            android:shadowRadius="5"/>
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/usernameText1"
-        android:layout_width="271dp"
+        android:layout_width="match_parent"
         android:layout_height="82dp"
-        android:hint="Username"
+        android:hint="username"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.201" />
+        app:layout_constraintVertical_bias="0.25"
+        android:paddingLeft="30dp"
+        android:shadowColor="@color/black"
+        android:background="@drawable/edittext_roundcorner"
+        android:fontFamily="monospace"
+        android:textSize="25dp"/>
 
     <EditText
         android:id="@+id/passText1"
-        android:layout_width="279dp"
-        android:layout_height="71dp"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,33 +75,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameText1"
         app:layout_constraintVertical_bias="0.117"
-        android:hint="Password"/>
-
-    <Button
-        android:id="@+id/registerButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passText1"
-        app:layout_constraintVertical_bias="0.297" />
+        android:hint="password"
+        android:paddingLeft="30dp"
+        android:background="@drawable/edittext_roundcorner"
+        android:fontFamily="monospace"
+        android:textSize="25dp"/>
 
     <Button
         android:id="@+id/singinButton1"
-        android:layout_width="103dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Sing In"
+        android:text="SIGN IN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerButton1"
-        app:layout_constraintVertical_bias="0.489" />
+        app:layout_constraintTop_toBottomOf="@+id/passText1"
+        app:layout_constraintVertical_bias="0.297"
+        android:background="@drawable/button_roundcorner"
+        android:fontFamily="@font/unbounded_regular"
+        android:textSize="20dp"
+        android:backgroundTint="@color/white"
+        android:backgroundTintMode="src_over"
+        android:shadowColor="@color/black"
+        android:shadowRadius="20"/>
+
+    <Button
+        android:id="@+id/registerButton1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="REGISTER"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singinButton1"
+        app:layout_constraintVertical_bias="0.489"
+        android:background="@drawable/button_roundcorner"
+        android:fontFamily="@font/unbounded_regular"
+        android:textSize="20dp"
+        android:shadowColor="@color/black"
+        android:shadowRadius="20"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
