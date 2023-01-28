@@ -52,8 +52,8 @@ public class AuthorsListActivity extends AppCompatActivity {
                 Cursor currentElement = myDatabaseHelper.getAuthorByID(id);
                 currentElement.moveToFirst();
                 i.putExtra("state", "edit");
-                i.putExtra("firstname",currentElement.getString(1));
-                i.putExtra("lastname",currentElement.getString(2));
+                i.putExtra("lastname",currentElement.getString(1));
+                i.putExtra("firstname",currentElement.getString(2));
                 i.putExtra("country",currentElement.getString(3));
                 i.putExtra("id",id);
                 startActivity(i);

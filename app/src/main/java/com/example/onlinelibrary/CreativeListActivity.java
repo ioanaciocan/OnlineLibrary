@@ -1,13 +1,96 @@
 package com.example.onlinelibrary;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 public class CreativeListActivity extends AppCompatActivity {
+
+    ImageButton logout,menu,admin;
+    LinearLayout linearLayout;
+    Button add;
+    ListView listView;
+    MyDatabaseHelper myDatabaseHelper;
+    Cursor data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creative_list);
+
+        linearLayout = findViewById(R.id.linearLayout);
+        logout = linearLayout.findViewById(R.id.buttonLogout);
+        menu = linearLayout.findViewById(R.id.buttonMenu);
+        admin = linearLayout.findViewById(R.id.buttonAdmin);
+        add = findViewById(R.id.buttonAdd);
+        listView = findViewById(R.id.listView);
+
+        myDatabaseHelper = new MyDatabaseHelper(this);
+        data  = myDatabaseHelper.getCreativeMatch();
+
+        SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
+                R.layout.creative_layout,data,
+                new String[]{data.getColumnName(3),
+                        data.getColumnName(6),data.getColumnName(7)},
+                new int[]{R.id.bookName,R.id.authorLastname,R.id.authorFirstname},0);
+        listView.setAdapter(sca);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getApplicationContext(),AddCreativeActivity.class);
+                Cursor currentElement = myDatabaseHelper.getCreativeByID(id);
+                currentElement.moveToFirst();
+                i.putExtra("state", "edit");
+                i.putExtra("creative_id",currentElement.getString(0));
+                i.putExtra("book_id",currentElement.getString(1));
+                i.putExtra("author_id",currentElement.getString(2));
+                startActivity(i);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                i.putExtra("logout",true);
+                startActivity(i);
+            }
+        });
+
+        admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), AdminMenuActivity.class);
+                startActivity(i);
+            }
+        });
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(getApplicationContext(),MenuActivity.class);
+                startActivity(intent1);
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),AddCreativeActivity.class);
+                intent.putExtra("state","add");
+                startActivity(intent);
+            }
+        });
+
     }
 }

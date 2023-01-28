@@ -83,6 +83,12 @@ public class AdminMenuActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        books_authors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),CreativeListActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

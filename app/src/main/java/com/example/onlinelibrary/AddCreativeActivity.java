@@ -8,78 +8,68 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class AddInventoryActivity extends AppCompatActivity {
+public class AddCreativeActivity extends AppCompatActivity {
 
     ImageButton logout,  admin, menu;
     TextView text;
     Button save, delete;
     MyDatabaseHelper myDatabaseHelper;
     String id;
-    Spinner bookSpinner, librarySpinner;
+    Spinner bookSpinner, authorSpinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_inventory);
+        setContentView(R.layout.activity_add_creative);
 
         myDatabaseHelper = new MyDatabaseHelper(this);
 
         LinearLayout linearLayout = findViewById(R.id.linearLayout);
-        text = linearLayout.findViewById(R.id.textAddLibrary);
-        logout = linearLayout.findViewById(R.id.logoutAddLibrary);
+        text = linearLayout.findViewById(R.id.text);
+        logout = linearLayout.findViewById(R.id.logout);
         menu = linearLayout.findViewById(R.id.buttonMenu);
-        admin = linearLayout.findViewById(R.id.buttonAdminMenu);
-
-        text = findViewById(R.id.textAddLibrary);
-//        book = findViewById(R.id.editTextBook);
-//        library = findViewById(R.id.editTextLibrary);
-        save = findViewById(R.id.buttonSaveLibrary);
-        delete = findViewById(R.id.buttonDeleteLibrary);
-
-
+        admin = linearLayout.findViewById(R.id.buttonAdmin);
+        save = findViewById(R.id.buttonSave);
+        delete = findViewById(R.id.buttonDelete);
         bookSpinner = findViewById(R.id.spinnerBook);
+        authorSpinner = findViewById(R.id.spinnerAuthor);
+
+
         Cursor cursor_books = myDatabaseHelper.getBook();
         startManagingCursor(cursor_books);
-
         String[] columns = new String[] { "name"};
         int[] to = new int[] { android.R.id.text1};
-
         SimpleCursorAdapter sca_books = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursor_books, columns, to);
         sca_books.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bookSpinner.setAdapter(sca_books);
 
-        librarySpinner = findViewById(R.id.spinnerLibrary);
-        Cursor cursor_library = myDatabaseHelper.getLibrary();
-        startManagingCursor(cursor_library);
-
-        SimpleCursorAdapter sca_library = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursor_library, columns, to);
-        sca_library.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        librarySpinner.setAdapter(sca_library);
+        Cursor cursor_author = myDatabaseHelper.getAuthor();
+        startManagingCursor(cursor_author);
+        String[] columns1 = new String[] { "lastname"};
+        SimpleCursorAdapter sca_author = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursor_author, columns1, to);
+        sca_author.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        authorSpinner.setAdapter(sca_author);
 
         Intent intent = getIntent();
         String state = intent.getStringExtra("state");
-        Log.d("state", state);
 
         if(state.equals("add")){
             delete.setVisibility(View.GONE);
-            text.setText("Add Inventory");
+            text.setText("Add Creative");
         }else if(state.equals("edit")){
-            String library_id = intent.getStringExtra("library_id");
+            String author_id = intent.getStringExtra("author_id");
             String book_id = intent.getStringExtra("book_id");
-            id = intent.getStringExtra("inventory_id");
-
-//            book.setText(book_id);
-//            library.setText(library_id);
+            id = intent.getStringExtra("creative_id");
             delete.setVisibility(View.VISIBLE);
             save.setText("Update");
-            text.setText("Edit Inventory");
+            text.setText("Edit Creative");
 
             for (int position = 0; position < sca_books.getCount(); position++) {
                 if(sca_books.getItemId(position) == Integer.valueOf(book_id)){
@@ -87,13 +77,14 @@ public class AddInventoryActivity extends AppCompatActivity {
                     break;
                 }
             }
-            for (int position = 0; position < sca_library.getCount(); position++) {
-                if(sca_library.getItemId(position) == Integer.valueOf(library_id)){
-                    librarySpinner.setSelection(position);
+            for (int position = 0; position < sca_author.getCount(); position++) {
+                if(sca_author.getItemId(position) == Integer.valueOf(author_id)){
+                    authorSpinner.setSelection(position);
                     break;
                 }
             }
         }
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,15 +114,12 @@ public class AddInventoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(state.equals("add")){
-                    Log.d("state", "onclick state");
-//                    myDatabaseHelper.insertInventory(Integer.valueOf(library.getText().toString()),Integer.valueOf(book.getText().toString()));
-                    myDatabaseHelper.insertInventory((int) librarySpinner.getSelectedItemId(),(int)bookSpinner.getSelectedItemId());
-                    Intent new_intent = new Intent(getApplicationContext(),InventoryListActivity.class);
+                    myDatabaseHelper.insertCreative((int) bookSpinner.getSelectedItemId(),(int)authorSpinner.getSelectedItemId());
+                    Intent new_intent = new Intent(getApplicationContext(),CreativeListActivity.class);
                     startActivity(new_intent);
                 }else if(state.equals("edit")){
-//                    myDatabaseHelper.updateInventory(id,library.getText().toString(),book.getText().toString());
-                    myDatabaseHelper.updateInventory(id, String.valueOf(librarySpinner.getSelectedItemId()),String.valueOf(bookSpinner.getSelectedItemId()));
-                    Intent intent1 = new Intent(getApplicationContext(),InventoryListActivity.class);
+                    myDatabaseHelper.updateCreative(id, String.valueOf(bookSpinner.getSelectedItemId()),String.valueOf(authorSpinner.getSelectedItemId()));
+                    Intent intent1 = new Intent(getApplicationContext(),CreativeListActivity.class);
                     startActivity(intent1);
                 }
             }
@@ -140,10 +128,11 @@ public class AddInventoryActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myDatabaseHelper.deleteInventory(id);
-                Intent new_intent = new Intent(getApplicationContext(),InventoryListActivity.class);
+                myDatabaseHelper.deleteCreative(id);
+                Intent new_intent = new Intent(getApplicationContext(),CreativeListActivity.class);
                 startActivity(new_intent);
             }
         });
+
     }
 }

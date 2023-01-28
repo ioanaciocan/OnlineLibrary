@@ -12,7 +12,7 @@
         android:outlineSpotShadowColor="@color/black"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/books"
         android:orientation="vertical"
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:text="LIBRARIES"
+            android:text="BOOKS"
             android:fontFamily="@font/unbounded_extrabold"
             android:textColor="@color/white"
             android:textSize="38dp"
@@ -62,7 +62,7 @@
                 android:src="@drawable/ic_baseline_menu_24" />
 
             <ImageButton
-                android:id="@+id/buttonLogoutMenu"
+                android:id="@+id/buttonLogout"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="1dp"
                 android:layout_marginTop="10dp"
@@ -84,13 +84,27 @@
             android:shadowColor="@color/black"
             android:shadowRadius="5"/>
 
+        <TextView
+            android:id="@+id/textLibrary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/unbounded_semibold"
+            android:text="Universitatea Nationala"
+            android:textAllCaps="false"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:layout_marginTop="-10dp"
+            android:textColor="@color/white"
+            android:shadowColor="@color/black"
+            android:shadowRadius="20"/>
+
     </LinearLayout>
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="628dp"
-        android:layout_marginTop="103dp"
+        android:layout_height="560dp"
+        android:layout_marginTop="153dp"
         android:layout_marginRight="3dp"
         android:layout_marginLeft="3dp"
         app:layout_constraintLeft_toLeftOf="parent"

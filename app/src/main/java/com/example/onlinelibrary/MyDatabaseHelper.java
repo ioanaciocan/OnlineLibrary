@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import androidx.annotation.Nullable;
 
@@ -101,13 +103,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_USERNAME, "admin");
-        contentValues.put(USER_PASSWORD, "admin");
+        contentValues.put(USER_PASSWORD, hashPassword("admin"));
         contentValues.put(USER_PERMISSION, "admin");
 
         sqLiteDatabase.insert(USERS_TABLE, null, contentValues);
 
         contentValues.put(USER_USERNAME, "user");
-        contentValues.put(USER_PASSWORD, "user");
+        contentValues.put(USER_PASSWORD, hashPassword("user"));
         contentValues.put(USER_PERMISSION, "user");
 
         sqLiteDatabase.insert(USERS_TABLE, null, contentValues);
@@ -147,6 +149,30 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "i." + INVENTORY_BOOK + " = " + "b." + BOOK_ID +
                 " and " +
                 "i." + INVENTORY_LIBRARY + " = " + "l." + LIBRARY_ID;
+        Cursor cursor = MyDB.rawQuery(query, null);
+
+        return cursor;
+    }
+
+    public Cursor getBooksByLibraryID(Long id){
+        SQLiteDatabase MyDB = this.getReadableDatabase();
+        String query = "select " +
+                "b." + BOOK_ID + " as _id, " +
+                "b." + BOOK_NAME + " as bookName, " +
+                "b." + BOOK_YEAR + ", " +
+                "b." + BOOK_PUBLISHER + ", " +
+                "l." + LIBRARY_NAME +
+                " from " +
+                INVENTORY_TABLE + " as i, " +
+                LIBRARY_TABLE + " as l, " +
+                BOOKS_TABLE + " as b " +
+                " where " +
+                "i." + INVENTORY_BOOK + " = " + "b." + BOOK_ID +
+                " and " +
+                "i." + INVENTORY_LIBRARY + " = " + "l." + LIBRARY_ID +
+                " and " +
+                "i." + INVENTORY_LIBRARY + " = " + id;
+        Log.i("books by library",query);
         Cursor cursor = MyDB.rawQuery(query, null);
 
         return cursor;
@@ -202,8 +228,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "b." + BOOK_NAME +  " as bookName, " +
                 "b." + BOOK_YEAR + ", " +
                 "b." + BOOK_PUBLISHER + ", " +
-                "a." + AUTHOR_FIRSTNAME + ", " +
                 "a." + AUTHOR_LASTNAME + ", " +
+                "a." + AUTHOR_FIRSTNAME + ", " +
                 "a." + AUTHOR_COUNTRY +
                 " from " +
                 CREATIVE_TABLE + " as c, " +
@@ -213,6 +239,34 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 "c." + CREATIVE_BOOK + " = " + "b." + BOOK_ID +
                 " and " +
                 "c." + CREATIVE_AUTHOR + " = " + "a." + AUTHOR_ID;
+        Cursor cursor = MyDB.rawQuery(query, null);
+
+        return cursor;
+    }
+
+    public Cursor getCreativeMatchByBookID(Long id){
+        SQLiteDatabase MyDB = this.getReadableDatabase();
+        String query = "select " +
+                "c." + CREATIVE_ID + " as _id, " +
+                "c." + CREATIVE_BOOK + ", " +
+                "c." + CREATIVE_AUTHOR + ", " +
+                "b." + BOOK_NAME +  " as bookName, " +
+                "b." + BOOK_YEAR + ", " +
+                "b." + BOOK_PUBLISHER + ", " +
+                "a." + AUTHOR_LASTNAME + ", " +
+                "a." + AUTHOR_FIRSTNAME + ", " +
+                "a." + AUTHOR_COUNTRY +
+                " from " +
+                CREATIVE_TABLE + " as c, " +
+                BOOKS_TABLE + " as b, " +
+                AUTHOR_TABLE + " as a " +
+                " where " +
+                "c." + CREATIVE_BOOK + " = " + "b." + BOOK_ID +
+                " and " +
+                "c." + CREATIVE_AUTHOR + " = " + "a." + AUTHOR_ID +
+                " and " +
+                "c." + CREATIVE_BOOK + " = " + id;
+        Log.i("creative book by id",query);
         Cursor cursor = MyDB.rawQuery(query, null);
 
         return cursor;
@@ -352,8 +406,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAuthor() {
         SQLiteDatabase MyDB = this.getReadableDatabase();
-        Cursor cursor = MyDB.query(AUTHOR_TABLE, new String[]{AUTHOR_ID + " as _id", AUTHOR_FIRSTNAME,
-                        AUTHOR_LASTNAME, AUTHOR_COUNTRY}, null, null, null,
+        Cursor cursor = MyDB.query(AUTHOR_TABLE, new String[]{AUTHOR_ID + " as _id", AUTHOR_LASTNAME,
+                        AUTHOR_FIRSTNAME, AUTHOR_COUNTRY}, null, null, null,
                 null, null);
         return cursor;
     }
@@ -368,7 +422,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Boolean insertAuthor(String firstname, String lastname, String country){
+    public Boolean insertAuthor(String lastname, String firstname, String country){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(AUTHOR_FIRSTNAME, firstname);
@@ -393,13 +447,53 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         MyDB.execSQL(query);
     }
 
+//    public Boolean insertUser(String username, String password, String permissions){
+//        SQLiteDatabase MyDB = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(USER_USERNAME, username);
+//        contentValues.put(USER_PASSWORD, password);
+//        contentValues.put(USER_PERMISSION,permissions);
+//        long result = MyDB.insert(BOOKS_TABLE, null, contentValues);
+//        return result != -1;
+//    }
+//
+//    public Boolean checkusername(String username){
+//        SQLiteDatabase MyDB = this.getWritableDatabase();
+//        Cursor cursor = MyDB.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " + USER_USERNAME + " = ?", new String[] {username});
+//        return cursor.getCount() > 0;
+//    }
+//
+//    public Boolean checkUsernamePassword(String username, String password){
+//        SQLiteDatabase MyDB = this.getWritableDatabase();
+//        Cursor cursor = MyDB.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " +
+//                USER_USERNAME + " = ?  AND " + USER_PASSWORD + " = ?", new String[] {username,password});
+//        return cursor.getCount() > 0;
+//    }
+
+    public String hashPassword(String password){
+        String generatedPassword = null;
+        try{
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update(password.getBytes());
+            byte[] bytes = messageDigest.digest();
+            StringBuilder stringBuilder = new StringBuilder();
+            for(int i=0;i<bytes.length;i++){
+                stringBuilder.append(Integer.toString((bytes[i]&0xff)+0x100,16).substring(1));
+            }
+            generatedPassword = stringBuilder.toString();
+        }catch (NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
+        return generatedPassword;
+    }
+
     public Boolean insertUser(String username, String password, String permissions){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_USERNAME, username);
-        contentValues.put(USER_PASSWORD, password);
+        contentValues.put(USER_PASSWORD, hashPassword(password));
         contentValues.put(USER_PERMISSION,permissions);
-        long result = MyDB.insert(BOOKS_TABLE, null, contentValues);
+        long result = MyDB.insert(USERS_TABLE, null, contentValues);
         return result != -1;
     }
 
@@ -412,7 +506,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public Boolean checkUsernamePassword(String username, String password){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " +
-                USER_USERNAME + " = ?  AND " + USER_PASSWORD + " = ?", new String[] {username,password});
+                USER_USERNAME + " = ?  AND " + USER_PASSWORD + " = ?", new String[] {username,hashPassword(password)});
         return cursor.getCount() > 0;
     }
 }

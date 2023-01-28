@@ -8,4 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
+
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="orange">#d9752e</color>
+    <color name="peach">#f5cca9</color>
+    <color name="black_40">#2C000000</color>
 </resources>

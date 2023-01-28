@@ -67,7 +67,7 @@
     <ListView
         android:id="@+id/bookListView"
         android:layout_width="match_parent"
-        android:layout_height="324dp"
+        android:layout_height="514dp"
         android:layout_marginTop="96dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

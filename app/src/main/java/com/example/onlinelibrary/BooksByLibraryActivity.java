@@ -11,52 +11,60 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
-public class MenuActivity extends AppCompatActivity {
+public class BooksByLibraryActivity extends AppCompatActivity {
 
-    ImageButton logout, admin, menu;
+    TextView library;
+    LinearLayout linearLayout, linearLayout1;
+    ImageButton menu, logout, admin;
     ListView listView;
-    Cursor data;
     MyDatabaseHelper myDatabaseHelper;
+    Cursor cursor;
+    Long library_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
-
-        LinearLayout linearLayout = findViewById(R.id.linearLayout);
-        LinearLayout linearLayout1 = linearLayout.findViewById(R.id.linearLayoutButtons);
+        setContentView(R.layout.activity_books_by_library);
 
         myDatabaseHelper = new MyDatabaseHelper(this);
-        logout = linearLayout1.findViewById(R.id.buttonLogoutMenu);
+        linearLayout = findViewById(R.id.linearLayout);
+        linearLayout1 = linearLayout.findViewById(R.id.linearLayoutButtons);
         admin = linearLayout1.findViewById(R.id.buttonAdmin);
+        logout = linearLayout1.findViewById(R.id.buttonLogout);
         menu = linearLayout1.findViewById(R.id.buttonMenu);
         listView = findViewById(R.id.listView);
+        library = linearLayout.findViewById(R.id.textLibrary);
 
-        data  = myDatabaseHelper.getLibrary();
+        Intent intent = getIntent();
+        library_id = intent.getLongExtra("library_id",-1);
+        cursor = myDatabaseHelper.getBooksByLibraryID(library_id);
+
+        cursor.moveToFirst();
         SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
-                R.layout.libraries_layout,data,
-                new String[]{data.getColumnName(1),
-                        data.getColumnName(2)
-                },
-                new int[]{R.id.libraryLayoutName,R.id.libraryLayoutAddress},0);
+                R.layout.books_layout,cursor,
+                new String[]{cursor.getColumnName(1),
+                        cursor.getColumnName(2),
+                        cursor.getColumnName(3)},
+                new int[]{R.id.booksLayoutName,R.id.booksLayoutYear,R.id.booksLayoutPublisher},0);
         listView.setAdapter(sca);
+        library.setText(cursor.getString(4));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), BooksByLibraryActivity.class);
-                i.putExtra("library_id",id);
+                Intent i = new Intent(getApplicationContext(), BookInfoActivity.class);
+                i.putExtra("book_id",id);
+                i.putExtra("library_id",library_id);
                 startActivity(i);
             }
         });
 
-
-        logout.setOnClickListener(new View.OnClickListener() {
+        menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                i.putExtra("logout",true);
+                Intent i = new Intent(getApplicationContext(),MenuActivity.class);
                 startActivity(i);
             }
         });
@@ -69,12 +77,13 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        menu.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+                i.putExtra("logout",true);
+                startActivity(i);
             }
         });
-
     }
 }
