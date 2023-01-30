@@ -56,6 +56,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(RegisterActivity.this, "Registerd " +
                                         "successfully", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                                if(check){
+                                    intent.putExtra("permissions","admin");
+                                }else{
+                                    intent.putExtra("permissions","user");
+                                }
                                 startActivity(intent);
                             }else{
                                 Toast.makeText(RegisterActivity.this, "Registration" +

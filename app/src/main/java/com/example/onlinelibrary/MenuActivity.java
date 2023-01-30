@@ -18,6 +18,7 @@ public class MenuActivity extends AppCompatActivity {
     ListView listView;
     Cursor data;
     MyDatabaseHelper myDatabaseHelper;
+    String permissions = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +28,19 @@ public class MenuActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.linearLayout);
         LinearLayout linearLayout1 = linearLayout.findViewById(R.id.linearLayoutButtons);
 
+        Intent initial_intent = getIntent();
+        permissions = initial_intent.getStringExtra("permissions");
         myDatabaseHelper = new MyDatabaseHelper(this);
         logout = linearLayout1.findViewById(R.id.buttonLogoutMenu);
         admin = linearLayout1.findViewById(R.id.buttonAdmin);
         menu = linearLayout1.findViewById(R.id.buttonMenu);
         listView = findViewById(R.id.listView);
 
+        if(permissions != null) {
+            if (!permissions.equals("admin")) {
+                admin.setVisibility(View.GONE);
+            }
+        }
         data  = myDatabaseHelper.getLibrary();
         SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
                 R.layout.libraries_layout,data,

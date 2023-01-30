@@ -509,4 +509,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 USER_USERNAME + " = ?  AND " + USER_PASSWORD + " = ?", new String[] {username,hashPassword(password)});
         return cursor.getCount() > 0;
     }
+
+    public Cursor getPermissionsByUser(String username, String password){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("SELECT * FROM " + USERS_TABLE + " WHERE " +
+                USER_USERNAME + " = ?  AND " + USER_PASSWORD + " = ?", new String[] {username,hashPassword(password)});
+        return cursor;
+    }
 }
