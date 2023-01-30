@@ -6,31 +6,37 @@
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:background="@color/teal_700">
+    android:background="@drawable/layout_background">
 
     <TextView
         android:id="@+id/authorsLayoutLastname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lastname"
-        android:textSize="25dp"
-        android:layout_marginStart="25dp"/>
+        android:textSize="23dp"
+        android:layout_marginStart="25dp"
+        android:fontFamily="@font/unbounded_extrabold"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/authorsLayoutFirstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Firstname"
-        android:textSize="20dp"
-        android:layout_marginStart="20dp"/>
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/unbounded_bold"/>
 
     <TextView
         android:id="@+id/authorsLayoutCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Country"
-        android:textSize="20dp"
-        android:layout_marginStart="20dp"/>
+        android:textSize="16dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/unbounded_bold"/>
 
     <!--    <ImageButton-->
     <!--        android:id="@+id/buttonEditLibrary"-->

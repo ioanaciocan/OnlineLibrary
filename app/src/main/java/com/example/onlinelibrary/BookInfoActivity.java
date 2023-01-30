@@ -18,6 +18,7 @@ public class BookInfoActivity extends AppCompatActivity {
     LinearLayout linearLayout, linearLayout1,info;
     TextView bookname, author, year, country, publisher, library;
     MyDatabaseHelper myDatabaseHelper;
+    String permissions = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +41,17 @@ public class BookInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Long id = intent.getLongExtra("book_id",-1);
+        permissions = intent.getStringExtra("permissions");
+        if(permissions != null) {
+            if (permissions.equals("user")) {
+                admin.setVisibility(View.GONE);
+            }
+        }
         Long library_id = intent.getLongExtra("library_id",-1);
         Cursor cursor = myDatabaseHelper.getCreativeMatchByBookID(id);
         if(cursor.getCount() == 0){
             Intent intent1 = new Intent(getApplicationContext(),MenuActivity.class);
+            intent1.putExtra("permissions",permissions);
             Toast.makeText(BookInfoActivity.this, "No book information", Toast.LENGTH_SHORT).show();
             startActivity(intent1);
         }else{
@@ -80,6 +88,7 @@ public class BookInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(getApplicationContext(),MenuActivity.class);
+                intent1.putExtra("permissions",permissions);
                 startActivity(intent1);
             }
         });

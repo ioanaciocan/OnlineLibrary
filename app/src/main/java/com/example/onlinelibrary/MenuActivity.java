@@ -37,7 +37,7 @@ public class MenuActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
 
         if(permissions != null) {
-            if (!permissions.equals("admin")) {
+            if (permissions.equals("user")) {
                 admin.setVisibility(View.GONE);
             }
         }
@@ -55,6 +55,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), BooksByLibraryActivity.class);
                 i.putExtra("library_id",id);
+                i.putExtra("permissions",permissions);
                 startActivity(i);
             }
         });
@@ -73,6 +74,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), AdminMenuActivity.class);
+                i.putExtra("permissions",permissions);
                 startActivity(i);
             }
         });

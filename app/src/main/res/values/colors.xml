@@ -11,6 +11,7 @@
 
     <color name="white_80">#CCFFFFFF</color>
     <color name="orange">#d9752e</color>
+    <color name="brown">#653716</color>
     <color name="peach">#f5cca9</color>
     <color name="black_40">#2C000000</color>
 </resources>

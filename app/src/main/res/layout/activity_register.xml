@@ -62,7 +62,9 @@
         android:background="@drawable/edittext_roundcorner"
         android:fontFamily="monospace"
         android:textSize="25dp"
-        android:paddingLeft="30dp"/>
+        android:paddingLeft="30dp"
+        android:textColorHint="@color/brown"
+        android:textColor="@color/brown"/>
 
     <EditText
         android:id="@+id/passText"
@@ -81,7 +83,9 @@
         android:background="@drawable/edittext_roundcorner"
         android:fontFamily="monospace"
         android:textSize="25dp"
-        android:paddingLeft="30dp"/>
+        android:paddingLeft="30dp"
+        android:textColorHint="@color/brown"
+        android:textColor="@color/brown"/>
 
     <EditText
         android:id="@+id/repassText"
@@ -100,7 +104,9 @@
         android:background="@drawable/edittext_roundcorner"
         android:fontFamily="monospace"
         android:textSize="25dp"
-        android:paddingLeft="30dp"/>
+        android:paddingLeft="30dp"
+        android:textColorHint="@color/brown"
+        android:textColor="@color/brown"/>
 
     <Button
         android:id="@+id/registerButton"
@@ -117,8 +123,6 @@
         android:background="@drawable/button_roundcorner"
         android:fontFamily="@font/unbounded_regular"
         android:textSize="20dp"
-        android:backgroundTint="@color/white"
-        android:backgroundTintMode="src_over"
         android:shadowColor="@color/black"
         android:shadowRadius="20"/>
 
@@ -137,8 +141,6 @@
         android:background="@drawable/button_roundcorner"
         android:fontFamily="@font/unbounded_regular"
         android:textSize="20dp"
-        android:backgroundTint="@color/white"
-        android:backgroundTintMode="src_over"
         android:shadowColor="@color/black"
         android:shadowRadius="20"/>
 

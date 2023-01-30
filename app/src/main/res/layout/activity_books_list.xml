@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BooksListActivity">
+    tools:context=".BooksListActivity"
+    android:background="@color/peach">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="0dp"
-        android:background="@color/teal_700"
+        android:background="@color/orange"
         android:orientation="vertical"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -24,14 +25,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:text="Books List"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:fontFamily="@font/unbounded_regular"
+            android:textColor="@color/white"/>
 
         <ImageButton
             android:id="@+id/logoutBook"
             android:layout_width="34dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="355dp"
-            android:layout_marginTop="-25dp"
+            android:layout_marginTop="-30dp"
             android:background="@color/transparent"
             android:src="@drawable/ic_baseline_logout_24" />
 
@@ -56,13 +59,16 @@
 
     <Button
         android:id="@+id/buttonAddBook"
-        android:layout_width="231dp"
+        android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginTop="624dp"
         android:text="ADD BOOK"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/button_roundcorner"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp"/>
 
     <ListView
         android:id="@+id/bookListView"

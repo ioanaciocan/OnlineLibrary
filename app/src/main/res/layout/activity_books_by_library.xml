@@ -48,7 +48,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="40dp"
                 android:layout_height="70dp"
-                android:background="@drawable/button_roundcorner"
+                android:background="@drawable/button_roundcorner_transparent"
                 android:src="@drawable/ic_baseline_person_24" />
 
             <ImageButton
@@ -58,7 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="40dp"
                 android:layout_height="70dp"
-                android:background="@drawable/button_roundcorner"
+                android:background="@drawable/button_roundcorner_transparent"
                 android:src="@drawable/ic_baseline_menu_24" />
 
             <ImageButton
@@ -68,7 +68,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="40dp"
                 android:layout_height="70dp"
-                android:background="@drawable/button_roundcorner"
+                android:background="@drawable/button_roundcorner_transparent"
                 android:src="@drawable/ic_baseline_logout_24" />
         </LinearLayout>
 

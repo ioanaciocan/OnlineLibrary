@@ -22,6 +22,7 @@ public class BooksByLibraryActivity extends AppCompatActivity {
     MyDatabaseHelper myDatabaseHelper;
     Cursor cursor;
     Long library_id;
+    String permissions = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,14 @@ public class BooksByLibraryActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         library_id = intent.getLongExtra("library_id",-1);
+        permissions = intent.getStringExtra("permissions");
         cursor = myDatabaseHelper.getBooksByLibraryID(library_id);
+
+        if(permissions != null) {
+            if (permissions.equals("user")) {
+                admin.setVisibility(View.GONE);
+            }
+        }
 
         cursor.moveToFirst();
         SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
@@ -57,6 +65,7 @@ public class BooksByLibraryActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), BookInfoActivity.class);
                 i.putExtra("book_id",id);
                 i.putExtra("library_id",library_id);
+                i.putExtra("permissions",permissions);
                 startActivity(i);
             }
         });
@@ -65,6 +74,7 @@ public class BooksByLibraryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),MenuActivity.class);
+                i.putExtra("permissions",permissions);
                 startActivity(i);
             }
         });
